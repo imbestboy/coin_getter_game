@@ -21,5 +21,9 @@ small_bold_font = customtkinter.CTkFont("Helvetica", 12, "bold")
 
 temp_window.destroy()
 
-# -- spaceship speed config
+# -- spaceship config
 spaceship_default_speed = 10
+SPACESHIP_WIDTH: int = 60
+SPACESHIP_HEIGHT: int = 60
+SPACESHIP_RESPAWN_X: int = (SCREEN_WIDTH // 2) - (SPACESHIP_WIDTH // 2)
+SPACESHIP_RESPAWN_Y: int = SCREEN_HEIGHT - SPACESHIP_HEIGHT - 20
