@@ -23,6 +23,13 @@ customtkinter.CTkButton(
     main_menu_window, text="System", command=lambda: functions.change_theme("system")
 ).grid(column=3, row=0, pady=30)
 
+# -- speed section
+customtkinter.CTkLabel(
+    main_menu_window,
+    text=f"Spaceship Speed (default : {config.spaceship_default_speed}) : ",
+    font=config.normal_font,
+).grid(column=0, row=1)
+
 
 # -- keep running
 main_menu_window.mainloop()

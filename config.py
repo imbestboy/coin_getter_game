@@ -20,3 +20,6 @@ small_font = customtkinter.CTkFont("Helvetica", 12)
 small_bold_font = customtkinter.CTkFont("Helvetica", 12, "bold")
 
 temp_window.destroy()
+
+# -- spaceship speed config
+spaceship_default_speed = 10
