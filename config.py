@@ -1,7 +1,7 @@
 import customtkinter
 
 # -- screen config
-SCREEN_WIDTH: int = 900
+SCREEN_WIDTH: int = 1000
 SCREEN_HEIGHT: int = 800
 
 # -- theme config
@@ -12,10 +12,10 @@ customtkinter.set_appearance_mode("system")
 temp_window = customtkinter.CTk()
 
 # -- font config
-normal_font = customtkinter.CTkFont("Helvetica", 22)
-bold_font = customtkinter.CTkFont("Helvetica", 22, "bold")
-big_font = customtkinter.CTkFont("Helvetica", 32)
-big_bold_font = customtkinter.CTkFont("Helvetica", 32, "bold")
+normal_font = customtkinter.CTkFont("Helvetica", 20)
+bold_font = customtkinter.CTkFont("Helvetica", 20, "bold")
+big_font = customtkinter.CTkFont("Helvetica", 30)
+big_bold_font = customtkinter.CTkFont("Helvetica", 30, "bold")
 small_font = customtkinter.CTkFont("Helvetica", 12)
 small_bold_font = customtkinter.CTkFont("Helvetica", 12, "bold")
 
