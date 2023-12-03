@@ -62,6 +62,15 @@ def start_main_menu():
         width=220,
         height=60,
         font=config.bold_font,
-    ).grid(column=1, row=2, pady=30)
+    ).grid(column=2, row=2, pady=30, columnspan=2)
+
+    customtkinter.CTkButton(
+        main_menu_window,
+        text="Quit",
+        command=main_menu_window.destroy,
+        width=220,
+        height=60,
+        font=config.normal_font,
+    ).grid(column=0, row=2, pady=30, columnspan=2)
 
     return main_menu_window
