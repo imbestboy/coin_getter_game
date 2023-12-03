@@ -49,12 +49,15 @@ def start_game(main_menu_window: customtkinter.CTk, spaceship_speed_label: int) 
         screen.fill(game_background_color)
 
         if game_over:
-            pass
+            is_running = False
+            # -- run main menu window again
+            main_menu.start_main_menu()
         else:
+            # -- get which key pressed by user (pygame.K_LEFT => left arrow and pygame.K_RIGHT => right arrow)
             keys = pygame.key.get_pressed()
             if keys[pygame.K_LEFT] and spaceship_x > 15:
                 spaceship_x -= spaceship_speed
-            if (
+            elif (
                 keys[pygame.K_RIGHT]
                 and spaceship_x < config.SCREEN_WIDTH - config.SPACESHIP_WIDTH - 15
             ):
@@ -64,6 +67,14 @@ def start_game(main_menu_window: customtkinter.CTk, spaceship_speed_label: int) 
             if block_y > config.SCREEN_HEIGHT:
                 block_x = random.randint(0, config.SCREEN_WIDTH - config.BLOCK_WIDTH)
                 block_y = -config.BLOCK_HEIGHT
+
+            if (
+                spaceship_x < (block_x + config.BLOCK_WIDTH)
+                and (spaceship_x + config.SPACESHIP_WIDTH) > block_x
+                and spaceship_y < (block_y + config.BLOCK_HEIGHT)
+                and (spaceship_y + config.SPACESHIP_HEIGHT) > block_y
+            ):
+                game_over = True
 
         pygame.draw.rect(
             screen,
