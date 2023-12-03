@@ -55,7 +55,10 @@ def start_main_menu():
     customtkinter.CTkButton(
         main_menu_window,
         text="Start game",
-        command=lambda: game.start_game(main_menu_window),
+        command=lambda: game.start_game(
+            main_menu_window=main_menu_window,
+            spaceship_speed_label=spaceship_speed_label,
+        ),
         width=220,
         height=60,
         font=config.bold_font,

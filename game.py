@@ -6,12 +6,16 @@ import config
 import main_menu
 
 
-def start_game(main_menu_window: customtkinter.CTk) -> None:
+def start_game(main_menu_window: customtkinter.CTk, spaceship_speed_label: int) -> None:
     """start_game close main menu and start the game
 
     Arguments:
         main_menu_window {customtkinter.CTk} -- tkinter main menu window
     """
+    # -- loading main menu settings
+    dark_mode = True if main_menu_window["bg"] == "gray10" else False
+    spaceship_speed = int(spaceship_speed_label.cget("text"))
+
     # -- close main menu window
     main_menu_window.destroy()
 
@@ -20,6 +24,7 @@ def start_game(main_menu_window: customtkinter.CTk) -> None:
     clock = pygame.time.Clock()
     is_running = True
 
+    # -- game window size
     screen = pygame.display.set_mode((config.SCREEN_WIDTH, config.SCREEN_HEIGHT))
 
     # -- game loop
@@ -32,17 +37,8 @@ def start_game(main_menu_window: customtkinter.CTk) -> None:
                 main_menu.start_main_menu()
 
         # -- for test screen color will change
-        colors_list = [
-            "purple",
-            "red",
-            "blue",
-            "gray",
-            "green",
-            "yellow",
-            "black",
-            "white",
-        ]
-        screen.fill(random.choice(colors_list))
+        game_background_color = "gray10" if dark_mode else "gray95"
+        screen.fill(game_background_color)
 
         # -- RENDER THE GAME
 
