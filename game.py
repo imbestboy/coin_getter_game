@@ -16,7 +16,8 @@ def start_game(main_menu_window: customtkinter.CTk, spaceship_speed_label: int) 
     dark_mode = True if main_menu_window["bg"] == "gray10" else False
     spaceship_speed = int(spaceship_speed_label.cget("text"))
     game_background_color = main_menu_window["bg"]
-    SPACESHIP_COLOR = "gray10" if not dark_mode else "gray95"
+    SPACESHIP_COLOR = "gray95" if dark_mode else "gray10"
+    BLOCK_COLOR = "#b30000" if dark_mode else "#800000"
 
     # -- close main menu window
     main_menu_window.destroy()
@@ -31,6 +32,10 @@ def start_game(main_menu_window: customtkinter.CTk, spaceship_speed_label: int) 
     screen = pygame.display.set_mode((config.SCREEN_WIDTH, config.SCREEN_HEIGHT))
     spaceship_x = config.SPACESHIP_RESPAWN_X
     spaceship_y = config.SPACESHIP_RESPAWN_Y
+
+    # -- block setup
+    block_x = random.randint(0, config.SCREEN_WIDTH - config.BLOCK_WIDTH)
+    block_y = -config.BLOCK_HEIGHT
 
     # -- game loop
     while is_running:
@@ -55,6 +60,11 @@ def start_game(main_menu_window: customtkinter.CTk, spaceship_speed_label: int) 
             ):
                 spaceship_x += spaceship_speed
 
+            block_y += config.block_speed
+            if block_y > config.SCREEN_HEIGHT:
+                block_x = random.randint(0, config.SCREEN_WIDTH - config.BLOCK_WIDTH)
+                block_y = -config.BLOCK_HEIGHT
+
         pygame.draw.rect(
             screen,
             SPACESHIP_COLOR,
@@ -63,6 +73,17 @@ def start_game(main_menu_window: customtkinter.CTk, spaceship_speed_label: int) 
                 spaceship_y,
                 config.SPACESHIP_WIDTH,
                 config.SPACESHIP_HEIGHT,
+            ),
+        )
+
+        pygame.draw.rect(
+            screen,
+            BLOCK_COLOR,
+            (
+                block_x,
+                block_y,
+                config.BLOCK_WIDTH,
+                config.BLOCK_HEIGHT,
             ),
         )
 
