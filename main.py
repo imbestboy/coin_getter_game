@@ -1,8 +1,3 @@
-import customtkinter
-
-import functions
-import config
-import game
 import main_menu
 
 # -- create main menu window
