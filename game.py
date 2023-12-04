@@ -31,6 +31,7 @@ def start_game(main_menu_window: customtkinter.CTk, spaceship_speed_label: int) 
     is_running = True
     game_over = False
     score = 0
+    is_pause = False
 
     # -- game window size
     screen = pygame.display.set_mode((config.SCREEN_WIDTH, config.SCREEN_HEIGHT))
@@ -54,6 +55,11 @@ def start_game(main_menu_window: customtkinter.CTk, spaceship_speed_label: int) 
                 is_running = False
                 # -- run main menu window again
                 main_menu.start_main_menu()
+            if event.type == pygame.KEYDOWN and event.key in (
+                pygame.K_ESCAPE,
+                pygame.K_p,
+            ):
+                is_pause = not is_pause
 
         screen.fill(game_background_color)
 
@@ -61,6 +67,9 @@ def start_game(main_menu_window: customtkinter.CTk, spaceship_speed_label: int) 
             is_running = False
             # -- run main menu window again
             main_menu.start_main_menu()
+        elif is_pause:
+            score_text = game_normal_font.render(f"Game paused", True, TEXT_COLOR)
+            screen.blit(score_text, (config.PAUSE_X, config.PAUSE_Y))
         else:
             # -- get which key pressed by user (pygame.K_LEFT => left arrow and pygame.K_RIGHT => right arrow)
             keys = pygame.key.get_pressed()

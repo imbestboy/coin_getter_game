@@ -45,3 +45,7 @@ MAX_SPEED = 13
 # -- score text position
 SCORE_X = 15
 SCORE_Y = 10
+
+# -- pause text position
+PAUSE_X = (SCREEN_WIDTH // 2) - 100
+PAUSE_Y = (SCREEN_HEIGHT // 2) - 50
