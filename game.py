@@ -18,6 +18,7 @@ def start_game(main_menu_window: customtkinter.CTk, spaceship_speed_label: int) 
     game_background_color = main_menu_window["bg"]
     SPACESHIP_COLOR = "gray95" if dark_mode else "gray10"
     BLOCK_COLOR = "#b30000" if dark_mode else "#800000"
+    COIN_COLOR = "#ffff00" if dark_mode else "#cccc00"
 
     # -- close main menu window
     main_menu_window.destroy()
@@ -36,6 +37,11 @@ def start_game(main_menu_window: customtkinter.CTk, spaceship_speed_label: int) 
     # -- block setup
     block_x = random.randint(0, config.SCREEN_WIDTH - config.BLOCK_WIDTH)
     block_y = -config.BLOCK_HEIGHT
+
+    # -- coin setup
+    coin_radius = config.coin_radius
+    coin_x = random.randint(0, config.SCREEN_WIDTH - config.coin_radius)
+    coin_y = (-config.coin_radius) * 10
 
     # -- game loop
     while is_running:
@@ -62,6 +68,11 @@ def start_game(main_menu_window: customtkinter.CTk, spaceship_speed_label: int) 
                 and spaceship_x < config.SCREEN_WIDTH - config.SPACESHIP_WIDTH - 15
             ):
                 spaceship_x += spaceship_speed
+
+            coin_y += config.coin_speed
+            if coin_y > config.SCREEN_HEIGHT:
+                coin_x = random.randint(0, config.SCREEN_WIDTH - config.coin_radius)
+                coin_y = (-config.coin_radius) * 10
 
             block_y += config.block_speed
             if block_y > config.SCREEN_HEIGHT:
@@ -96,6 +107,13 @@ def start_game(main_menu_window: customtkinter.CTk, spaceship_speed_label: int) 
                 config.BLOCK_WIDTH,
                 config.BLOCK_HEIGHT,
             ),
+        )
+
+        pygame.draw.circle(
+            screen,
+            COIN_COLOR,
+            (coin_x, coin_y),
+            config.coin_radius,
         )
 
         # -- update() the display to put your work on screen

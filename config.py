@@ -33,6 +33,11 @@ block_speed = 3
 BLOCK_WIDTH = 150
 BLOCK_HEIGHT = 30
 
+# -- coin config
+coin_speed = 3
+coin_radius = 15
+coin_radius_decrease = 0.2
+
 # -- block and coin config
 INCREASE_SPEED = 0.4
 MAX_SPEED = 13
