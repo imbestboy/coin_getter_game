@@ -41,3 +41,7 @@ coin_radius_decrease = 0.2
 # -- block and coin config
 INCREASE_SPEED = 0.4
 MAX_SPEED = 13
+
+# -- score text position
+SCORE_X = 15
+SCORE_Y = 10

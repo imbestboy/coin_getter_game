@@ -19,15 +19,18 @@ def start_game(main_menu_window: customtkinter.CTk, spaceship_speed_label: int) 
     SPACESHIP_COLOR = "gray95" if dark_mode else "gray10"
     BLOCK_COLOR = "#b30000" if dark_mode else "#800000"
     COIN_COLOR = "#ffff00" if dark_mode else "#cccc00"
+    TEXT_COLOR = "gray84" if dark_mode else "gray14"
 
     # -- close main menu window
     main_menu_window.destroy()
 
     # -- pygame setup
     pygame.init()
+    game_normal_font = pygame.font.SysFont("Helvetica", 32)
     clock = pygame.time.Clock()
     is_running = True
     game_over = False
+    score = 0
 
     # -- game window size
     screen = pygame.display.set_mode((config.SCREEN_WIDTH, config.SCREEN_HEIGHT))
@@ -40,8 +43,8 @@ def start_game(main_menu_window: customtkinter.CTk, spaceship_speed_label: int) 
 
     # -- coin setup
     coin_radius = config.coin_radius
-    coin_x = random.randint(0, config.SCREEN_WIDTH - config.coin_radius)
-    coin_y = (-config.coin_radius) * 10
+    coin_x = random.randint(coin_radius, config.SCREEN_WIDTH - coin_radius)
+    coin_y = (-coin_radius) * 10
 
     # -- game loop
     while is_running:
@@ -71,8 +74,8 @@ def start_game(main_menu_window: customtkinter.CTk, spaceship_speed_label: int) 
 
             coin_y += config.coin_speed
             if coin_y > config.SCREEN_HEIGHT:
-                coin_x = random.randint(0, config.SCREEN_WIDTH - config.coin_radius)
-                coin_y = (-config.coin_radius) * 10
+                coin_x = random.randint(0, config.SCREEN_WIDTH - coin_radius)
+                coin_y = (-coin_radius) * 10
 
             block_y += config.block_speed
             if block_y > config.SCREEN_HEIGHT:
@@ -86,6 +89,16 @@ def start_game(main_menu_window: customtkinter.CTk, spaceship_speed_label: int) 
                 and (spaceship_y + config.SPACESHIP_HEIGHT) > block_y
             ):
                 game_over = True
+
+            if (
+                spaceship_x < coin_x + coin_radius
+                and spaceship_x + config.SPACESHIP_WIDTH > coin_x - coin_radius
+                and spaceship_y < coin_y + coin_radius
+                and spaceship_y + config.SPACESHIP_HEIGHT > coin_y - coin_radius
+            ):
+                score += 10
+                coin_x = random.randint(coin_radius, config.SCREEN_WIDTH - coin_radius)
+                coin_y = -coin_radius
 
         pygame.draw.rect(
             screen,
@@ -113,8 +126,11 @@ def start_game(main_menu_window: customtkinter.CTk, spaceship_speed_label: int) 
             screen,
             COIN_COLOR,
             (coin_x, coin_y),
-            config.coin_radius,
+            coin_radius,
         )
+
+        score_text = game_normal_font.render(f"Score: {score}", True, TEXT_COLOR)
+        screen.blit(score_text, (config.SCORE_X, config.SCORE_Y))
 
         # -- update() the display to put your work on screen
         pygame.display.update()
