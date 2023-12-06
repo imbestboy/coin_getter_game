@@ -31,6 +31,7 @@ def start_game(main_menu_window: customtkinter.CTk, spaceship_speed_label: int) 
     is_running = True
     game_over = False
     score = 0
+    combo = 1.0
     is_pause = False
 
     # -- game window size
@@ -41,11 +42,13 @@ def start_game(main_menu_window: customtkinter.CTk, spaceship_speed_label: int) 
     # -- block setup
     block_x = random.randint(0, config.SCREEN_WIDTH - config.BLOCK_WIDTH)
     block_y = -config.BLOCK_HEIGHT
+    block_speed = config.block_speed
 
     # -- coin setup
     coin_radius = config.coin_radius
     coin_x = random.randint(coin_radius, config.SCREEN_WIDTH - coin_radius)
     coin_y = (-coin_radius) * 10
+    coin_speed = config.coin_speed
 
     # -- game loop
     while is_running:
@@ -81,12 +84,15 @@ def start_game(main_menu_window: customtkinter.CTk, spaceship_speed_label: int) 
             ):
                 spaceship_x += spaceship_speed
 
-            coin_y += config.coin_speed
+            coin_y += coin_speed
             if coin_y > config.SCREEN_HEIGHT:
                 coin_x = random.randint(0, config.SCREEN_WIDTH - coin_radius)
                 coin_y = (-coin_radius) * 10
+                block_speed = config.block_speed
+                coin_speed = config.coin_speed
+                combo = 1.0
 
-            block_y += config.block_speed
+            block_y += block_speed
             if block_y > config.SCREEN_HEIGHT:
                 block_x = random.randint(0, config.SCREEN_WIDTH - config.BLOCK_WIDTH)
                 block_y = -config.BLOCK_HEIGHT
@@ -105,9 +111,20 @@ def start_game(main_menu_window: customtkinter.CTk, spaceship_speed_label: int) 
                 and spaceship_y < coin_y + coin_radius
                 and spaceship_y + config.SPACESHIP_HEIGHT > coin_y - coin_radius
             ):
-                score += 10
+                score += 10 * combo
                 coin_x = random.randint(coin_radius, config.SCREEN_WIDTH - coin_radius)
                 coin_y = -coin_radius
+                combo += 0.1
+                coin_speed = (
+                    coin_speed + config.INCREASE_SPEED
+                    if coin_speed < config.MAX_SPEED
+                    else MAX_SPEED
+                )
+                block_speed = (
+                    block_speed + config.INCREASE_SPEED
+                    if block_speed < config.MAX_SPEED
+                    else MAX_SPEED
+                )
 
         pygame.draw.rect(
             screen,
@@ -138,8 +155,11 @@ def start_game(main_menu_window: customtkinter.CTk, spaceship_speed_label: int) 
             coin_radius,
         )
 
-        score_text = game_normal_font.render(f"Score: {score}", True, TEXT_COLOR)
+        score_text = game_normal_font.render(f"Score: {int(score)}", True, TEXT_COLOR)
         screen.blit(score_text, (config.SCORE_X, config.SCORE_Y))
+
+        score_text = game_normal_font.render(f"Combo: {combo:.1f}x", True, TEXT_COLOR)
+        screen.blit(score_text, (config.COMBO_X, config.COMBO_Y))
 
         # -- update() the display to put your work on screen
         pygame.display.update()

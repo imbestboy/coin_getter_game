@@ -39,7 +39,7 @@ coin_radius = 15
 coin_radius_decrease = 0.2
 
 # -- block and coin config
-INCREASE_SPEED = 0.4
+INCREASE_SPEED = 0.3
 MAX_SPEED = 13
 
 # -- score text position
@@ -49,3 +49,7 @@ SCORE_Y = 10
 # -- pause text position
 PAUSE_X = (SCREEN_WIDTH // 2) - 100
 PAUSE_Y = (SCREEN_HEIGHT // 2) - 50
+
+# -- combo text position
+COMBO_X = SCREEN_WIDTH - 200
+COMBO_Y = 10
