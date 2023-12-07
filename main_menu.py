@@ -1,4 +1,5 @@
 import customtkinter
+import tkinter
 
 import functions
 import config
@@ -51,6 +52,26 @@ def start_main_menu():
     )
     spaceship_speed_label.grid(column=2, row=1)
 
+    # -- game difficulty section
+    customtkinter.CTkLabel(
+        main_menu_window,
+        text="Choose game difficulty (default: medium) : ",
+        font=config.normal_font,
+    ).grid(column=0, row=2, pady=30)
+    difficulty_var = tkinter.IntVar(value=1)
+    easy_radio_button = customtkinter.CTkRadioButton(
+        main_menu_window, text="Easy", variable=difficulty_var, value=0
+    )
+    medium_radio_button = customtkinter.CTkRadioButton(
+        main_menu_window, text="Medium", variable=difficulty_var, value=1
+    )
+    hard_radio_button = customtkinter.CTkRadioButton(
+        main_menu_window, text="Hard", variable=difficulty_var, value=2
+    )
+    easy_radio_button.grid(column=1, row=2, pady=30)
+    medium_radio_button.grid(column=2, row=2, pady=30, ipadx=20)
+    hard_radio_button.grid(column=3, row=2, pady=30, ipadx=20)
+
     # -- start game section
     customtkinter.CTkButton(
         main_menu_window,
@@ -62,7 +83,7 @@ def start_main_menu():
         width=220,
         height=60,
         font=config.bold_font,
-    ).grid(column=2, row=2, pady=30, columnspan=2)
+    ).grid(column=2, row=3, columnspan=2)
 
     customtkinter.CTkButton(
         main_menu_window,
@@ -71,6 +92,6 @@ def start_main_menu():
         width=220,
         height=60,
         font=config.normal_font,
-    ).grid(column=0, row=2, pady=30, columnspan=2)
+    ).grid(column=0, row=3, columnspan=2)
 
     return main_menu_window
