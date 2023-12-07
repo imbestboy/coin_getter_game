@@ -6,7 +6,11 @@ import config
 import main_menu
 
 
-def start_game(main_menu_window: customtkinter.CTk, spaceship_speed_label: int) -> None:
+def start_game(
+    main_menu_window: customtkinter.CTk,
+    spaceship_speed_label: int,
+    difficulty_var: int,
+) -> None:
     """start_game close main menu and start the game
 
     Arguments:
@@ -20,6 +24,7 @@ def start_game(main_menu_window: customtkinter.CTk, spaceship_speed_label: int) 
     BLOCK_COLOR = "#b30000" if dark_mode else "#800000"
     COIN_COLOR = "#ffff00" if dark_mode else "#cccc00"
     TEXT_COLOR = "gray84" if dark_mode else "gray14"
+    difficulty = int(difficulty_var.get())
 
     # -- close main menu window
     main_menu_window.destroy()
@@ -40,8 +45,39 @@ def start_game(main_menu_window: customtkinter.CTk, spaceship_speed_label: int) 
     spaceship_y = config.SPACESHIP_RESPAWN_Y
 
     # -- block setup
-    block_x = random.randint(0, config.SCREEN_WIDTH - config.BLOCK_WIDTH)
-    block_y = -config.BLOCK_HEIGHT
+    if difficulty == 2:
+        blocks = [
+            [
+                random.randint(0, config.SCREEN_WIDTH - config.BLOCK_WIDTH),
+                -config.BLOCK_HEIGHT,
+            ],
+            [
+                random.randint(0, config.SCREEN_WIDTH - config.BLOCK_WIDTH),
+                -config.BLOCK_HEIGHT * 2.5,
+            ],
+            [
+                random.randint(0, config.SCREEN_WIDTH - config.BLOCK_WIDTH),
+                -config.BLOCK_HEIGHT * 4.5,
+            ],
+        ]
+    elif difficulty == 1:
+        blocks = [
+            [
+                random.randint(0, config.SCREEN_WIDTH - config.BLOCK_WIDTH),
+                -config.BLOCK_HEIGHT,
+            ],
+            [
+                random.randint(0, config.SCREEN_WIDTH - config.BLOCK_WIDTH),
+                -config.BLOCK_HEIGHT * 2.5,
+            ],
+        ]
+    else:
+        blocks = [
+            [
+                random.randint(0, config.SCREEN_WIDTH - config.BLOCK_WIDTH),
+                -config.BLOCK_HEIGHT,
+            ],
+        ]
     block_speed = config.block_speed
 
     # -- coin setup
@@ -91,19 +127,21 @@ def start_game(main_menu_window: customtkinter.CTk, spaceship_speed_label: int) 
                 block_speed = config.block_speed
                 coin_speed = config.coin_speed
                 combo = 1.0
-
-            block_y += block_speed
-            if block_y > config.SCREEN_HEIGHT:
-                block_x = random.randint(0, config.SCREEN_WIDTH - config.BLOCK_WIDTH)
-                block_y = -config.BLOCK_HEIGHT
-
-            if (
-                spaceship_x < (block_x + config.BLOCK_WIDTH)
-                and (spaceship_x + config.SPACESHIP_WIDTH) > block_x
-                and spaceship_y < (block_y + config.BLOCK_HEIGHT)
-                and (spaceship_y + config.SPACESHIP_HEIGHT) > block_y
-            ):
-                game_over = True
+            for block_index in range(len(blocks)):
+                blocks[block_index][1] += block_speed
+                block_x, block_y = blocks[block_index]
+                if block_y > config.SCREEN_HEIGHT:
+                    blocks[block_index][0] = random.randint(
+                        0, config.SCREEN_WIDTH - config.BLOCK_WIDTH
+                    )
+                    blocks[block_index][1] = -config.BLOCK_HEIGHT
+                if (
+                    spaceship_x < (block_x + config.BLOCK_WIDTH)
+                    and (spaceship_x + config.SPACESHIP_WIDTH) > block_x
+                    and spaceship_y < (block_y + config.BLOCK_HEIGHT)
+                    and (spaceship_y + config.SPACESHIP_HEIGHT) > block_y
+                ):
+                    game_over = True
 
             if (
                 spaceship_x < coin_x + coin_radius
@@ -137,16 +175,17 @@ def start_game(main_menu_window: customtkinter.CTk, spaceship_speed_label: int) 
             ),
         )
 
-        pygame.draw.rect(
-            screen,
-            BLOCK_COLOR,
-            (
-                block_x,
-                block_y,
-                config.BLOCK_WIDTH,
-                config.BLOCK_HEIGHT,
-            ),
-        )
+        for block_x, block_y in blocks:
+            pygame.draw.rect(
+                screen,
+                BLOCK_COLOR,
+                (
+                    block_x,
+                    block_y,
+                    config.BLOCK_WIDTH,
+                    config.BLOCK_HEIGHT,
+                ),
+            )
 
         pygame.draw.circle(
             screen,

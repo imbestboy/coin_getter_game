@@ -79,6 +79,7 @@ def start_main_menu():
         command=lambda: game.start_game(
             main_menu_window=main_menu_window,
             spaceship_speed_label=spaceship_speed_label,
+            difficulty_var=difficulty_var,
         ),
         width=220,
         height=60,
