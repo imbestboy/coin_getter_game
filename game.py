@@ -156,10 +156,20 @@ def start_game(
                 and spaceship_y < coin_y + coin_radius
                 and spaceship_y + config.SPACESHIP_HEIGHT > coin_y - coin_radius
             ):
-                score += 10 * combo
+                score += (
+                    10 * combo
+                    if (spaceship_y + config.SPACESHIP_HEIGHT)
+                    >= (config.SCREEN_HEIGHT // 3)
+                    else 10 * (combo + 0.2)
+                )
                 coin_x = random.randint(coin_radius, config.SCREEN_WIDTH - coin_radius)
                 coin_y = -coin_radius
-                combo += 0.1
+                combo += (
+                    0.1
+                    if (spaceship_y + config.SPACESHIP_HEIGHT)
+                    >= (config.SCREEN_HEIGHT // 3)
+                    else 0.2
+                )
                 coin_speed = (
                     coin_speed + config.INCREASE_SPEED
                     if coin_speed < config.MAX_SPEED
