@@ -92,12 +92,12 @@ def start_main_menu():
     medium_radio_button.grid(column=2, row=2, pady=30, ipadx=20)
     hard_radio_button.grid(column=3, row=2, pady=30, ipadx=20)
 
+    # -- start game section
     buttons_frame = customtkinter.CTkFrame(
         main_menu_window, width=config.SCREEN_WIDTH, fg_color="transparent"
     )
     buttons_frame.grid(row=3, columnspan=4)
 
-    # -- start game section
     customtkinter.CTkButton(
         buttons_frame,
         text="Start game",
