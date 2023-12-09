@@ -2,6 +2,7 @@ import peewee
 import datetime
 import json
 import os
+import config
 
 database = peewee.SqliteDatabase(".game.db")
 
@@ -12,9 +13,9 @@ class BaseModel(peewee.Model):
 
 
 class Setting(BaseModel):
-    theme = peewee.CharField(max_length=2, default="d")
+    theme = peewee.CharField(max_length=2, default="s")
     difficulty = peewee.CharField(max_length=1, default="m")
-    spaceship_speed = peewee.IntegerField(default=10)
+    spaceship_speed = peewee.IntegerField(default=config.spaceship_default_speed)
 
 
 class Record(BaseModel):
