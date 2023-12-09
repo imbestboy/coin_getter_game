@@ -114,11 +114,18 @@ def start_game(
             keys = pygame.key.get_pressed()
             if keys[pygame.K_LEFT] and spaceship_x > 15:
                 spaceship_x -= spaceship_speed
-            elif (
+            if (
                 keys[pygame.K_RIGHT]
                 and spaceship_x < config.SCREEN_WIDTH - config.SPACESHIP_WIDTH - 15
             ):
                 spaceship_x += spaceship_speed
+            if keys[pygame.K_UP] and spaceship_y > 15:
+                spaceship_y -= spaceship_speed
+            if (
+                keys[pygame.K_DOWN]
+                and spaceship_y < config.SCREEN_HEIGHT - config.SPACESHIP_HEIGHT - 15
+            ):
+                spaceship_y += spaceship_speed
 
             coin_y += coin_speed
             if coin_y > config.SCREEN_HEIGHT:
