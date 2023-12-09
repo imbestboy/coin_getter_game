@@ -36,3 +36,5 @@ def database_init():
     if not os.path.isfile(".game.db"):
         with database:
             database.create_tables([Setting, Record, Statistic])
+            Setting.create()
+            Statistic.create()
