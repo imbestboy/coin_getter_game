@@ -93,7 +93,7 @@ def start_main_menu():
     hard_radio_button.grid(column=3, row=2, pady=30, ipadx=20)
 
     buttons_frame = customtkinter.CTkFrame(
-        main_menu_window, width=config.SCREEN_WIDTH, fg_color=main_menu_window["bg"]
+        main_menu_window, width=config.SCREEN_WIDTH, fg_color="transparent"
     )
     buttons_frame.grid(row=3, columnspan=4)
 
