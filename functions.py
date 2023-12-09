@@ -64,3 +64,7 @@ def show_spaceship_speed_value(
     speed_value = int(speed_value)
     spaceship_speed_label.configure(text=speed_value)
     change_spaceship_speed(speed_value)
+
+
+def show_statistic():
+    pass
