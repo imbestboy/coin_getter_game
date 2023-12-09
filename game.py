@@ -4,27 +4,25 @@ import customtkinter
 
 import config
 import main_menu
+import functions
 
 
-def start_game(
-    main_menu_window: customtkinter.CTk,
-    spaceship_speed_label: int,
-    difficulty_var: int,
-) -> None:
+def start_game(main_menu_window: customtkinter.CTk) -> None:
     """start_game close main menu and start the game
 
     Arguments:
         main_menu_window {customtkinter.CTk} -- tkinter main menu window
     """
-    # -- loading main menu settings
-    dark_mode = True if main_menu_window["bg"] == "gray10" else False
-    spaceship_speed = int(spaceship_speed_label.cget("text"))
+    # -- loading settings
+    settings = functions.get_settings_from_db()
+    dark_mode = True if settings.theme == "d" else False
+    spaceship_speed = settings.spaceship_speed
     game_background_color = main_menu_window["bg"]
     SPACESHIP_COLOR = "gray95" if dark_mode else "gray10"
     BLOCK_COLOR = "#b30000" if dark_mode else "#800000"
     COIN_COLOR = "#ffff00" if dark_mode else "#cccc00"
     TEXT_COLOR = "gray84" if dark_mode else "gray14"
-    difficulty = int(difficulty_var.get())
+    difficulty = settings.difficulty
 
     # -- close main menu window
     main_menu_window.destroy()
@@ -45,7 +43,7 @@ def start_game(
     spaceship_y = config.SPACESHIP_RESPAWN_Y
 
     # -- block setup
-    if difficulty == 2:
+    if difficulty == "h":
         blocks = [
             [
                 random.randint(0, config.SCREEN_WIDTH - config.BLOCK_WIDTH),
@@ -60,7 +58,7 @@ def start_game(
                 -config.BLOCK_HEIGHT * 4.5,
             ],
         ]
-    elif difficulty == 1:
+    elif difficulty == "m":
         blocks = [
             [
                 random.randint(0, config.SCREEN_WIDTH - config.BLOCK_WIDTH),
