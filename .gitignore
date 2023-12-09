@@ -29,3 +29,4 @@ ENV/
 
 # local settings
 .env
+*.db
