@@ -29,7 +29,6 @@ class Record(BaseModel):
 class Statistic(BaseModel):
     coin_count = peewee.IntegerField(default=0)
     score = peewee.IntegerField(default=0)
-    lose = peewee.IntegerField(default=0)
     game_count = peewee.IntegerField(default=0)
 
 
