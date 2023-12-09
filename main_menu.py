@@ -105,7 +105,7 @@ def start_main_menu():
     customtkinter.CTkButton(
         buttons_frame,
         text="Statistic",
-        command=functions.show_statistic,
+        command=lambda: functions.show_statistic(main_menu_window=main_menu_window),
         width=220,
         height=60,
         font=config.normal_font,

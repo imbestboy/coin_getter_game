@@ -1,5 +1,30 @@
 import customtkinter
 import models
+import config
+
+
+def set_statistic_to_db(coin_count: int, score: int) -> None:
+    """set_statistic_to_db add each game statistic to database
+
+    Arguments:
+        coin_count {int} -- count of coins user get
+        score {int} -- score of user
+    """
+    statistic = get_statistic_from_db()
+    statistic.game_count += 1
+    statistic.coin_count += coin_count
+    statistic.score += score
+    statistic.save()
+
+
+def get_statistic_from_db() -> models.Statistic:
+    """get_statistic_from_db get statistic from database
+
+    Returns:
+        models.Statistic -- statistic table
+    """
+    statistic, _ = models.Statistic.get_or_create(id=1)
+    return statistic
 
 
 def get_settings_from_db() -> models.Setting:
@@ -66,5 +91,34 @@ def show_spaceship_speed_value(
     change_spaceship_speed(speed_value)
 
 
-def show_statistic():
-    pass
+def show_statistic(main_menu_window: customtkinter.CTk):
+    statistic = get_statistic_from_db()
+    statistic_window = customtkinter.CTkToplevel(main_menu_window)
+    statistic_window.geometry(
+        f"{config.STATISTIC_WINDOW_WIDTH}x{config.STATISTIC_WINDOW_HEIGHT}"
+    )
+    statistic_window.title("Game Statistic")
+    statistic_window.resizable(False, False)
+    customtkinter.CTkLabel(
+        statistic_window,
+        text=f"Total game played : {statistic.game_count}",
+        font=config.normal_font,
+    ).grid(row=0, column=0, pady=10)
+    customtkinter.CTkLabel(
+        statistic_window,
+        text=f"Total coin collected : {statistic.coin_count}",
+        font=config.normal_font,
+    ).grid(row=1, column=0)
+    customtkinter.CTkLabel(
+        statistic_window,
+        text=f"Total score earned : {statistic.score}",
+        font=config.normal_font,
+    ).grid(row=2, column=0, pady=10)
+
+    customtkinter.CTkButton(
+        statistic_window,
+        text="Done",
+        command=statistic_window.destroy,
+        font=config.normal_font,
+        height=40,
+    ).grid(column=0, row=3)

@@ -53,3 +53,7 @@ PAUSE_Y = (SCREEN_HEIGHT // 2) - 50
 # -- combo text position
 COMBO_X = SCREEN_WIDTH - 200
 COMBO_Y = 10
+
+# -- statistic window settings
+STATISTIC_WINDOW_WIDTH = 400
+STATISTIC_WINDOW_HEIGHT = 400

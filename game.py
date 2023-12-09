@@ -36,6 +36,7 @@ def start_game(main_menu_window: customtkinter.CTk) -> None:
     score = 0
     combo = 1.0
     is_pause = False
+    coin_count = 0
 
     # -- game window size
     screen = pygame.display.set_mode((config.SCREEN_WIDTH, config.SCREEN_HEIGHT))
@@ -90,6 +91,7 @@ def start_game(main_menu_window: customtkinter.CTk) -> None:
             # -- pygame.QUIT event means the user clicked X to close your window
             if event.type == pygame.QUIT:
                 is_running = False
+                functions.set_statistic_to_db(coin_count=coin_count, score=score)
                 # -- run main menu window again
                 main_menu.start_main_menu()
             if event.type == pygame.KEYDOWN and event.key in (
@@ -102,6 +104,7 @@ def start_game(main_menu_window: customtkinter.CTk) -> None:
 
         if game_over:
             is_running = False
+            functions.set_statistic_to_db(coin_count=coin_count, score=score)
             # -- run main menu window again
             main_menu.start_main_menu()
         elif is_pause:
@@ -154,6 +157,7 @@ def start_game(main_menu_window: customtkinter.CTk) -> None:
                 and spaceship_y < coin_y + coin_radius
                 and spaceship_y + config.SPACESHIP_HEIGHT > coin_y - coin_radius
             ):
+                coin_count += 1
                 score += (
                     10 * combo
                     if (spaceship_y + config.SPACESHIP_HEIGHT)
