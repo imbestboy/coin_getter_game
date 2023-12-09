@@ -18,6 +18,11 @@ def start_main_menu():
     # load settings from database
     settings = functions.get_settings_from_db()
 
+    # -- set theme
+    customtkinter.set_appearance_mode(
+        "dark"
+    ) if settings.theme == "d" else customtkinter.set_appearance_mode("light")
+
     # -- add theme section to main menu window
     customtkinter.CTkLabel(
         main_menu_window,
