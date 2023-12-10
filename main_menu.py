@@ -94,8 +94,10 @@ def start_main_menu():
     hard_radio_button.grid(column=3, row=2, pady=30, ipadx=20)
 
     # -- get username section
-    last_record = models.Record.select().order_by(models.Record.id.desc()).get()
-    username_var = tkinter.StringVar(value=last_record.name)
+    last_record = models.Record.select().order_by(models.Record.id.desc()).get_or_none()
+    username_var = tkinter.StringVar(
+        value=last_record.name if last_record else "ImBestBoy"
+    )
     customtkinter.CTkLabel(
         main_menu_window,
         text="Enter your name : ",
