@@ -7,7 +7,7 @@ import main_menu
 import functions
 
 
-def start_game(main_menu_window: customtkinter.CTk) -> None:
+def start_game(main_menu_window: customtkinter.CTk, username: str) -> None:
     """start_game close main menu and start the game
 
     Arguments:
@@ -91,6 +91,7 @@ def start_game(main_menu_window: customtkinter.CTk) -> None:
             # -- pygame.QUIT event means the user clicked X to close your window
             if event.type == pygame.QUIT:
                 is_running = False
+                functions.set_record_to_db(username=username, score=score)
                 functions.set_statistic_to_db(coin_count=coin_count, score=score)
                 # -- run main menu window again
                 main_menu.start_main_menu()
@@ -105,6 +106,7 @@ def start_game(main_menu_window: customtkinter.CTk) -> None:
         if game_over:
             is_running = False
             functions.set_statistic_to_db(coin_count=coin_count, score=score)
+            functions.set_record_to_db(username=username, score=score)
             # -- run main menu window again
             main_menu.start_main_menu()
         elif is_pause:

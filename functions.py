@@ -3,6 +3,29 @@ import models
 import config
 
 
+def get_username(string_var: customtkinter.StringVar) -> str:
+    """get_username convert string var tkinter default variable to str
+
+    Arguments:
+        string_var {customtkinter.StringVar} -- string var contains username
+
+    Returns:
+        str -- username
+    """
+    username = string_var.get()
+    return username
+
+
+def set_record_to_db(username: str, score: int) -> None:
+    """set_record_to_db set each game record to database
+
+    Arguments:
+        username {str} -- name of user
+        score {int} -- score of user
+    """
+    models.Record.create(name=username, score=score)
+
+
 def set_statistic_to_db(coin_count: int, score: int) -> None:
     """set_statistic_to_db add each game statistic to database
 

@@ -92,16 +92,44 @@ def start_main_menu():
     medium_radio_button.grid(column=2, row=2, pady=30, ipadx=20)
     hard_radio_button.grid(column=3, row=2, pady=30, ipadx=20)
 
+    # -- get username section
+    username_var = tkinter.StringVar(value="ImBestBoy")
+    customtkinter.CTkLabel(
+        main_menu_window,
+        text="Enter your name : ",
+        font=config.normal_font,
+    ).grid(column=0, row=3, sticky="E")
+    username_entry = customtkinter.CTkEntry(
+        main_menu_window,
+        placeholder_text="Example : ImBestBoy",
+        font=config.small_font,
+        width=270,
+        height=45,
+        textvariable=username_var,
+    )
+    username_entry.grid(column=1, row=3, columnspan=2, sticky="W")
+    customtkinter.CTkButton(
+        main_menu_window,
+        text="Enter",
+        command=main_menu_window.focus,
+        height=45,
+        width=100,
+        font=config.small_font,
+    ).grid(column=2, row=3, sticky="E")
+
     # -- start game section
     buttons_frame = customtkinter.CTkFrame(
         main_menu_window, width=config.SCREEN_WIDTH, fg_color="transparent"
     )
-    buttons_frame.grid(row=3, columnspan=4)
+    buttons_frame.grid(row=4, columnspan=4, pady=30)
 
     customtkinter.CTkButton(
         buttons_frame,
         text="Start game",
-        command=lambda: game.start_game(main_menu_window=main_menu_window),
+        command=lambda: game.start_game(
+            main_menu_window=main_menu_window,
+            username=functions.get_username(username_var),
+        ),
         width=220,
         height=60,
         font=config.bold_font,

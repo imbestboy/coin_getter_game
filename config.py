@@ -16,8 +16,8 @@ normal_font = customtkinter.CTkFont("Helvetica", 20)
 bold_font = customtkinter.CTkFont("Helvetica", 20, "bold")
 big_font = customtkinter.CTkFont("Helvetica", 30)
 big_bold_font = customtkinter.CTkFont("Helvetica", 30, "bold")
-small_font = customtkinter.CTkFont("Helvetica", 12)
-small_bold_font = customtkinter.CTkFont("Helvetica", 12, "bold")
+small_font = customtkinter.CTkFont("Helvetica", 16)
+small_bold_font = customtkinter.CTkFont("Helvetica", 16, "bold")
 
 temp_window.destroy()
 
