@@ -131,12 +131,28 @@ def show_statistic(main_menu_window: customtkinter.CTk):
         statistic_window,
         text=f"Total coin collected : {statistic.coin_count}",
         font=config.normal_font,
-    ).grid(row=1, column=0)
+    ).grid(row=1, column=0, pady=10)
     customtkinter.CTkLabel(
         statistic_window,
         text=f"Total score earned : {statistic.score}",
         font=config.normal_font,
     ).grid(row=2, column=0, pady=10)
+
+    customtkinter.CTkLabel(
+        statistic_window,
+        text="3 Latest records :",
+        font=config.normal_font,
+    ).grid(row=3, column=0, pady=10)
+    row = 4
+    for record in models.Record.select().order_by(models.Record.id.desc()):
+        customtkinter.CTkLabel(
+            statistic_window,
+            text=f"{record.name} : {record.score}",
+            font=config.normal_font,
+        ).grid(row=row, column=0, pady=10)
+        row += 1
+        if row == 7:
+            break
 
     customtkinter.CTkButton(
         statistic_window,
@@ -144,4 +160,4 @@ def show_statistic(main_menu_window: customtkinter.CTk):
         command=statistic_window.destroy,
         font=config.normal_font,
         height=40,
-    ).grid(column=0, row=3)
+    ).grid(column=0, row=row, pady=10)
