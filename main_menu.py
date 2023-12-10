@@ -4,6 +4,7 @@ import tkinter
 import functions
 import config
 import game
+import models
 
 
 def start_main_menu():
@@ -93,7 +94,8 @@ def start_main_menu():
     hard_radio_button.grid(column=3, row=2, pady=30, ipadx=20)
 
     # -- get username section
-    username_var = tkinter.StringVar(value="ImBestBoy")
+    last_record = models.Record.select().order_by(models.Record.id.desc()).get()
+    username_var = tkinter.StringVar(value=last_record.name)
     customtkinter.CTkLabel(
         main_menu_window,
         text="Enter your name : ",
