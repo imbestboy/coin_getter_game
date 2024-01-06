@@ -2,6 +2,20 @@
 
 Coin getter is a Python game made by [Pygame](https://www.pygame.org/).
 
+## game preview
+customize game
+![main-menu](https://github.com/imbestboy/coin_getter_game/assets/34400350/dac2476a-121c-4fa9-8ad3-9bdd8f81bf8e)
+
+easy mode
+![easy](https://github.com/imbestboy/coin_getter_game/assets/34400350/eb100d07-2a12-481b-9e29-359797c2229f)
+
+hard mode
+![hard](https://github.com/imbestboy/coin_getter_game/assets/34400350/1c89f361-deb5-46e7-8a63-9b5ca10d6d70)
+
+see your statistic  
+![statistic](https://github.com/imbestboy/coin_getter_game/assets/34400350/b9f79795-840d-4a44-9d2b-dba2fe3a226a)
+
+
 ## Installation
 
 1. install [python3](https://www.python.org/downloads/) in your system
